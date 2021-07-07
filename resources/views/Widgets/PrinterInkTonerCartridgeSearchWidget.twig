@@ -3,6 +3,9 @@
 
 {% set currentCategory = services.category.getCurrentCategory() %}
 {% set level1CategoryChildren = services.category.getCurrentCategoryChildren(mainCategoryId) %}
+{% set level2CategoryChildren = [] %}
+{% set level3CategoryChildren = [] %}
+{% set tree = {} %}
 
 {% if mainCategoryId is not empty %}
     {# Get the subcategories with the current category id #}
@@ -16,11 +19,33 @@
         </div>
     {% else %}
         <h2><b>Tinten & Toner Suche</b></h2>
-        {% for level1Child in level1CategoryChildren %}
-            {{ level1Child. }}
-            {% set level1ChildId = level1Child.id %}
-            {% set level2CategoryChildren = services.category.getCurrentCategoryChildren(level1ChildId) %}
-        {% endfor %}
+        <label>
+            Hersteller:
+            <select>
+                Hersteller:
+                {% for level1Child in level1CategoryChildren %}
+                    <option>{{ level1Child.details[0].name }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>
+            Druckermodell / Nr.:
+            <select>
+                Hersteller:
+                {% for level1Child in level1CategoryChildren %}
+                    <option>{{ level1Child.details[0].name }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>
+            Toner / Drucker:
+            <select>
+                Hersteller:
+                {% for level1Child in level1CategoryChildren %}
+                    <option>{{ level1Child.details[0].name }}</option>
+                {% endfor %}
+            </select>
+        </label>
     {% endif %}
 {% else %}
     <p>Search settings are empty</p>
