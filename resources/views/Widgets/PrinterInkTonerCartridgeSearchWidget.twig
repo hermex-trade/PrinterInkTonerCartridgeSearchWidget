@@ -1,7 +1,10 @@
 {% set parentId = widget.settings.mainCategoryId.mobile %}
+{% set title = widget.settings.title.mobile %}
+{% set description = widget.settings.description.mobile %}
 
 {% macro debugCategoryInformation(category) %}
-    <p>Level: {{ category.level }}: ID: {{ category.id }}, Name: {{ category.details.0.name }}, ParentId: {{ category.parentCategoryId }}</p>
+    <p>Level: {{ category.level }}: ID: {{ category.id }}, Name: {{ category.details.0.name }},
+        ParentId: {{ category.parentCategoryId }}</p>
 {% endmacro %}
 
 {% if parentId is not empty %}
@@ -14,76 +17,88 @@
     {# Get the subcategories with the current category id #}
     {% set level2CategoryChildren = services.category.getChildren(parentId) %}
 
+
+    {% set level1Category = [] %}
+    {% set level2Categories = [] %}
+    {% set level3Categories = [] %}
+    {% set level4Categories = [] %}
+    {% set level5Categories = [] %}
+
+    {% set option = {
+        "id": parentCategory.id,
+        "parentCategoryId": parentCategory.parentCategoryId,
+        "name": parentCategory.details.0.name,
+        "nameUrl": parentCategory.details.0.nameUrl
+    } %}
+
+    {% set level1Category = level1Category|merge([option]) %}
+
+    {% for level2Catgegory in level2CategoryChildren %}
+        {% set id = level2Catgegory.id %}
+        {% set level3CategoryChildren = services.category.getChildren(id) %}
+
+        {# Prune branch category tree branch if final category #}
+        {% set option = {
+            "id": level2Catgegory.id,
+            "parentCategoryId": level2Catgegory.parentCategoryId,
+            "name": level2Catgegory.details.0.name,
+            "nameUrl": level2Catgegory.details.0.nameUrl
+        } %}
+        {% set level2Categories = level2Categories|merge([option]) %}
+        {% for level3Categegory in level3CategoryChildren %}
+            {% set id = level3Categegory.id %}
+            {% set level4CategoryChildren = services.category.getChildren(id) %}
+
+            {% set option = {
+                "id": level3Categegory.id,
+                "parentCategoryId": level3Categegory.parentCategoryId,
+                "name": level3Categegory.details.0.name,
+                "nameUrl": level3Categegory.details.0.nameUrl
+            } %}
+            {% set level3Categories = level3Categories|merge([option]) %}
+            {% for level4Categegory in level4CategoryChildren %}
+                {% set id = level4Categegory.id %}
+                {% set level5CategoryChildren = services.category.getChildren(id) %}
+                {% set option = {
+                    "id": level4Categegory.id,
+                    "parentCategoryId": level4Categegory.parentCategoryId,
+                    "name": level4Categegory.details.0.name,
+                    "nameUrl": level4Categegory.details.0.nameUrl
+                } %}
+                {% set level4Categories = level4Categories|merge([option]) %}
+                {% for level5Categegory in level5CategoryChildren %}
+                    {% set id = level5Categegory.id %}
+                    {% set option = {
+                        "id": level5Categegory.id,
+                        "parentCategoryId": level5Categegory.parentCategoryId,
+                        "name": level5Categegory.details.0.name,
+                        "nameUrl": level5Categegory.details.0.nameUrl
+                    } %}
+                    {% set level5Categories = level5Categories|merge([option]) %}
+                {% endfor %}
+            {% endfor %}
+        {% endfor %}
+    {% endfor %}
+
     {% if isPreview %}
         <div>
             <h2>Tinten & Toner Suche</h2>
             <p>Tinten & Toner Hauptkategorie hat ID: {{ parentId }}</p>
             <p>Tinten & Toner Hauptkategorie hat URL: {{ parentCategoryNameUrl }}</p>
+
         </div>
 
     {% else %}
         <div>
-            <p>Tinten & Toner Hauptkategorie hat ID: {{ parentId }}</p>
-            <p>Tinten & Toner Hauptkategorie hat URL: {{ parentCategoryNameUrl }}</p>
-
-            {% set level2 = [] %}
-            {% set level3 = [] %}
-            {% set level4 = [] %}
-            {% set level5 = [] %}
-
-            {% for level2Catgegory in level2CategoryChildren %}
-                {% set id = level2Catgegory.id %}
-                {% set level3CategoryChildren = services.category.getChildren(id) %}
-                {% set option = {
-                    "id": level2Catgegory.id,
-                    "parentCategoryId": level2Catgegory.parentCategoryId,
-                    "name": level2Catgegory.details.0.name,
-                    "nameUrl": level2Catgegory.details.0.nameUrl
-                } %}
-                {% set level2 = level2|merge([option]) %}
-                {% for level3Categegory in level3CategoryChildren %}
-                    {% set id = level3Categegory.id %}
-                    {% set level4CategoryChildren = services.category.getChildren(id) %}
-                    {% set option = {
-                        "id": level3Categegory.id,
-                        "parentCategoryId": level3Categegory.parentCategoryId,
-                        "name": level3Categegory.details.0.name,
-                        "nameUrl": level3Categegory.details.0.nameUrl
-                    } %}
-                    {% set level3 = level3|merge([option]) %}
-                    {% for level4Categegory in level4CategoryChildren %}
-                        {% set id = level4Categegory.id %}
-                        {% set level5CategoryChildren = services.category.getChildren(id) %}
-                        {% set option = {
-                            "id": level4Categegory.id,
-                            "parentCategoryId": level4Categegory.parentCategoryId,
-                            "name": level4Categegory.details.0.name,
-                            "nameUrl": level4Categegory.details.0.nameUrl
-                        } %}
-                        {% set level4 = level4|merge([option]) %}
-                        {% for level5Categegory in level5CategoryChildren %}
-                            {% set id = level5Categegory.id %}
-                            {% set option = {
-                                "id": level5Categegory.id,
-                                "parentCategoryId": level5Categegory.parentCategoryId,
-                                "name": level5Categegory.details.0.name,
-                                "nameUrl": level5Categegory.details.0.nameUrl
-                            } %}
-                            {% set level5 = level5|merge([option]) %}
-                        {% endfor %}
-                    {% endfor %}
-                {% endfor %}
-            {% endfor %}
-            <span>Level 2: {{ level2 | length }} Einträge</span>
-            <br>
-            <br>
-            <span>Level 3: {{ level3 | length }} Einträge</span>
-            <br>
-            <br>
-            <span>Level 4: {{ level4 | length }} Einträge</span>
-            <br>
-            <br>
-            <span>Level 5: {{ level5 | length }} Einträge</span>
+            <ink-toner-search
+                    :title="{{ title | json_encode }}"
+                    :description="{{ description | json_encode }}"
+                    :level1-category="{{ level1Category | json_encode }}"
+                    :level2-categories="{{ level2Categories | json_encode }}"
+                    :level3-categories="{{ level3Categories | json_encode }}"
+                    :level4-categories="{{ level4Categories | json_encode }}"
+                    :level5-categories="{{ level5Categories | json_encode }}">
+            </ink-toner-search>
         </div>
     {% endif %}
 {% else %}

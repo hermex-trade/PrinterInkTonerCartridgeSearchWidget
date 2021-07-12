@@ -52,6 +52,12 @@ class PrinterInkTonerCartridgeSearchWidget extends BaseWidget
         $settings->createNumber("mainCategoryId")
             ->withName("PrinterInkTonerCartridgeSearchWidget.mainCategoryIdLabel")
             ->withToolTip("PrinterInkTonerCartridgeSearchWidget.mainCategoryIdTooltip");
+        $settings->createText("title")
+            ->withName("PrinterInkTonerCartridgeSearchWidget.titleLabel")
+            ->withToolTip("PrinterInkTonerCartridgeSearchWidget.titleTooltip");
+        $settings->createText("description")
+            ->withName("PrinterInkTonerCartridgeSearchWidget.descriptionLabel")
+            ->withToolTip("PrinterInkTonerCartridgeSearchWidget.descriptionTooltip");
         return $settings->toArray();
     }
 

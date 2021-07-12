@@ -23,7 +23,7 @@ class PrinterInkTonerCartridgeSearchProvider extends ServiceProvider
         $widgetRepository->registerWidget(PrinterInkTonerCartridgeSearchWidget::class);
 
         $eventDispatcher->listen('IO.Resources.Import', function (ResourceContainer $container) {
-            $container->addScriptTemplate('PrinterInkTonerCartridgeSearch::Content.Scripts');
+            $container->addScriptTemplate('PrinterInkTonerCartridgeSearchWidget::Content.Scripts');
         }, 0);
     }
 }
