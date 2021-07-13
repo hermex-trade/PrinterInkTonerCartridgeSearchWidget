@@ -25,20 +25,16 @@ module.exports = (env) => {
                     }
                 },
                 {
-                    test: /\.scss$/,
+                    test: /\.s[ac]ss$/i,
                     exclude: /node_modules/,
-                    use:
-                        [
-                            {
-                                loader: 'style-loader'
-                            },
-                            {
-                                loader: 'css-loader'
-                            },
-                            {
-                                loader: 'sass-loader'
-                            }
-                        ]
+                    use: [
+                        // Creates `style` nodes from JS strings
+                        "style-loader",
+                        // Translates CSS into CommonJS
+                        "css-loader",
+                        // Compiles Sass to CSS
+                        "sass-loader",
+                    ],
                 },
             ]
         }

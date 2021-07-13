@@ -9,6 +9,8 @@
 
 {% if parentId is not empty %}
 
+    {# TODO Filter if categories if they are not for the current client #}
+
     {% set parentCategory = services.category.get(parentId) %}
     {% set parentCategoryName = parentCategory.details.0.name %}
     {% set parentCategoryNameUrl = parentCategory.details.0.nameUrl %}
@@ -37,7 +39,6 @@
         {% set id = level2Catgegory.id %}
         {% set level3CategoryChildren = services.category.getChildren(id) %}
 
-        {# Prune branch category tree branch if final category #}
         {% set option = {
             "id": level2Catgegory.id,
             "parentCategoryId": level2Catgegory.parentCategoryId,
