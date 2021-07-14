@@ -2,11 +2,6 @@
 {% set title = widget.settings.title.mobile %}
 {% set description = widget.settings.description.mobile %}
 
-{% macro debugCategoryInformation(category) %}
-    <p>Level: {{ category.level }}: ID: {{ category.id }}, Name: {{ category.details.0.name }},
-        ParentId: {{ category.parentCategoryId }}</p>
-{% endmacro %}
-
 {% if parentId is not empty %}
 
     {# TODO Filter if categories if they are not for the current client #}
@@ -19,8 +14,7 @@
     {# Get the subcategories with the current category id #}
     {% set level2CategoryChildren = services.category.getChildren(parentId) %}
 
-
-    {% set level1Category = [] %}
+    {% set level1Category = {} %}
     {% set level2Categories = [] %}
     {% set level3Categories = [] %}
     {% set level4Categories = [] %}
@@ -28,12 +22,11 @@
 
     {% set option = {
         "id": parentCategory.id,
-        "parentCategoryId": parentCategory.parentCategoryId,
-        "name": parentCategory.details.0.name,
-        "nameUrl": parentCategory.details.0.nameUrl
+        "name": parentCategoryName,
+        "nameUrl": parentCategoryNameUrl
     } %}
 
-    {% set level1Category = level1Category|merge([option]) %}
+    {% set level1Category = level1Category|merge(option) %}
 
     {% for level2Catgegory in level2CategoryChildren %}
         {% set id = level2Catgegory.id %}

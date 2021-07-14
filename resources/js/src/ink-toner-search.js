@@ -8,50 +8,42 @@ Vue.component("ink-toner-search", {
             <p class="display-3">((title))</p>
             <p class="my-3">((description))</p>
         </div>
-        <div class="row">   
-            <div class="col-sm-3">
-                <div class="start">
-                    <div class="p-5">
-                        <p class="h4 text-white">Druckermarke</p>
-                        <select class="custom-select" v-model="selectedLevel2Category">
-                            <option default :value="null" selected>Bitte wählen</option>
-                            <option v-for="category in level2Options" :value="category" :key="category.id">((category.name))</option>
-                        </select>
-                    </div>
+        <div class="row search-steps">
+            <div class="search-step col-sm" :class="hasSelection(selectedLevel2Category)">
+                <div class="m-2">
+                    <p class="h4">1. Marke</p>
+                    <select class="custom-select" v-model="selectedLevel2Category">
+                        <option default :value="null" selected>Bitte wählen</option>
+                        <option v-for="category in level2Options" :value="category" :key="category.id">((category.name))</option>
+                </select>
                 </div>
             </div>
-            <div class="col-sm-3">
-                <div class="middle">
-                   <div class="p-5">
-                    <p class="h4 text-white">Suchart</p>
+            <div class="search-step col-sm" :class="hasSelection(selectedLevel3Category)">
+                <div class="m-2">
+                    <p class="h4">2. Suche nach</p>
                     <select :disabled="!selectedLevel2Category" class="custom-select" v-model="selectedLevel3Category">
                         <option default :value="null" selected>Bitte wählen</option>
                         <option v-for="category in level3Options" :value="category" :key="category.id">((category.name))</option>
                     </select>
-                    </div>
                 </div>
             </div>
-            <div class="col-sm-3">
-                <div class="middle">
-                  <div class="p-5">
-                    <p v-if="level5Options.length > 0" class="h4 text-white">Serie</p>
-                    <p v-else class="h4 text-white">Patronen Nr.</p>
+            <div class="search-step col-sm" :class="hasSelection(selectedLevel4Category)">
+                <div class="m-2">
+                    <p v-if="level5Options.length > 0" class="h4">3. Serie</p>
+                    <p v-else class="h4">3. Patronen Nr.</p>
                     <select :disabled="!selectedLevel3Category" class="custom-select" v-model="selectedLevel4Category">
                         <option default :value="null" selected>Bitte wählen</option>
                         <option v-for="category in level4Options" :value="category" :key="category.id">((category.name))</option>
                     </select>
-                    </div>
                 </div>
-            </div>  
-            <div v-if="level5Options.length > 0" class="col-sm-3">
-                <div class="end">
-                  <div class="p-5">
-                    <p class="h4 text-white">Druckermodell</p>
+            </div>
+            <div v-if="level5Options.length > 0" class="search-step col-sm" :class="hasSelection(selectedLevel5Category)">
+                <div class="m-2">
+                    <p class="h4">4. Druckermodell</p>
                     <select :disabled="!selectedLevel4Category" class="custom-select" v-model="selectedLevel5Category">
                         <option default :value="null" selected>Bitte wählen</option>
                         <option v-for="category in level5Options" :value="category" :key="category.id">((category.name))</option>
                     </select>
-                    </div>
                 </div>
             </div>
         </div>
@@ -85,6 +77,9 @@ Vue.component("ink-toner-search", {
         }
     },
     methods: {
+        hasSelection: function (category) {
+            return category ? 'done' : ''
+        },
         resetLevel3Selection() {
             this.selectedLevel3Category = null
         },
@@ -95,20 +90,33 @@ Vue.component("ink-toner-search", {
             this.selectedLevel5Category = null
         },
         redirectToMatchingProducts() {
-            window.location.href = this.targetUrl;
+            if (this.targetUrl) {
+                document.location.href = document.location.origin + this.targetUrl
+            }
         }
     },
     data() {
         return {
+            selectedLevel1Category: this.level1Category,
             selectedLevel2Category: null,
             selectedLevel3Category: null,
             selectedLevel4Category: null,
             selectedLevel5Category: null,
-            reachedLastLevel: false,
-            targetUrl: null,
         }
     },
     computed: {
+        reachedLastLevel: function() {
+            if (this.selectedLevel2Category && this.level3Options.length === 0) {
+                return true
+            }
+            if (this.selectedLevel3Category && this.level4Options.length === 0) {
+                return true
+            }
+            if (this.selectedLevel4Category && this.level5Options.length === 0) {
+                return true
+            }
+            return !!this.selectedLevel5Category;
+        },
         cssVars() {
             return {
                 '--primaryColor': "#aa6f28",
@@ -146,5 +154,23 @@ Vue.component("ink-toner-search", {
         currentPathName: function () {
             return window.location.pathname
         },
+        targetUrl: function () {
+            let targetUrl = ""
+            function concatenateNameUrl(category) {
+                targetUrl += `/${category.nameUrl}`
+            }
+            function concatenateNameUrlIfCategorySelected(category) {
+                if (category) {
+                    concatenateNameUrl(category)
+                }
+            }
+            concatenateNameUrlIfCategorySelected(this.selectedLevel1Category)
+            concatenateNameUrlIfCategorySelected(this.selectedLevel2Category)
+            concatenateNameUrlIfCategorySelected(this.selectedLevel3Category)
+            concatenateNameUrlIfCategorySelected(this.selectedLevel4Category)
+            concatenateNameUrlIfCategorySelected(this.selectedLevel5Category)
+            // Remove leading slash if it is present in the string
+            return targetUrl
+        }
     },
 });

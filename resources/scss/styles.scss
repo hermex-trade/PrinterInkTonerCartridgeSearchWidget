@@ -1,29 +1,60 @@
+.search-step {
+  background: #e6e6e6;
+  height: 6rem;
+  line-height: 3rem;
+  vertical-align: middle;
+  display: inline-block;
+  position: relative;
+  margin: 8px 25px 8px 8px;
 
+  &:not(.mobile) {
+    &:not(:first-child) {
+      &::before {
+        content: "";
+        position: absolute;
+        right: 100%;
+        bottom: 0;
+        width: 0;
+        height: 0;
+        border-left: 2rem solid transparent;
+        border-top: 3rem solid #e6e6e6;
+        border-bottom: 3rem solid #e6e6e6;
+      }
+    }
 
-.start {
-  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%206%202%22%3E%3Cpath%20d%3D%22M%200%200%20H%200%20L%200%202%20V%202%20L%205%202%20H%205%20L%206%201%20L%205%200%20Z%22%20fill%3D%22%23fbb331%22%2F%3E%3C%2Fsvg%3E");
-  background-repeat: no-repeat no-repeat;
-  background-position: left center;
-  background-size: 100% auto;
-}
+    &:not(:last-child) {
+      &::after {
+        content: "";
+        position: absolute;
+        left: 100%;
+        bottom: 0;
+        width: 0;
+        height: 0;
+        border-left: 2rem solid #e6e6e6;
+        border-top: 3rem solid transparent;
+        border-bottom: 3rem solid transparent;
+      }
+    }
+  }
 
-.done {
-  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%206%202%22%3E%3Cpath%20d%3D%22M%200%200%20H%200%20L%200%202%20V%202%20L%205%202%20H%205%20L%206%201%20L%205%200%20Z%22%20fill%3D%22%23fbb331%22%2F%3E%3C%2Fsvg%3E");
-  background-repeat: no-repeat no-repeat;
-  background-position: left center;
-  background-size: 100% auto;
-}
+  &.done {
+    background: #94ba06;
 
-.middle {
-  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%206%202%22%3E%3Cpath%20d%3D%22M%200%200%20L%201%201%20L%200%202%20V%202%20L%205%202%20H%205%20L%206%201%20L%205%200%20Z%22%20fill%3D%22%23fbb331%22%2F%3E%3C%2Fsvg%3E");
-  background-repeat: no-repeat no-repeat;
-  background-position: left center;
-  background-size: 100% auto;
-}
+    &:not(.mobile) {
+      &:not(:first-child) {
+        &::before {
+          border-top: 3rem solid #94ba06;
+          border-bottom: 3rem solid #94ba06;
+        }
+      }
+    }
 
-.end {
-  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%206%202%22%3E%3Cpath%20d%3D%22M%200%200%20L%201%201%20L%200%202%20V%202%20L%206%202%20H%206%20L%206%200%20Z%22%20fill%3D%22%23fbb331%22%2F%3E%3C%2Fsvg%3E");
-  background-repeat: no-repeat no-repeat;
-  background-position: left center;
-  background-size: 100% auto;
+    &:not(.mobile) {
+      &:not(:last-child) {
+        &::after {
+          border-left: 2rem solid #94ba06;
+        }
+      }
+    }
+  }
 }
