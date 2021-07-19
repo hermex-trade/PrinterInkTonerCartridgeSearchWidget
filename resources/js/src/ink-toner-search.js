@@ -30,7 +30,7 @@ Vue.component("ink-toner-search", {
             <div class="search-step col-sm" :class="hasSelection(selectedLevel4Category)">
                 <div class="m-2">
                     <p v-if="level5Options.length > 0" class="h4">3. Serie</p>
-                    <p v-else class="h4">3. Patronen Nr.</p>
+                    <p v-else class="h4">3. Bitte wählen</p>
                     <select :disabled="!selectedLevel3Category" class="custom-select" v-model="selectedLevel4Category">
                         <option default :value="null" selected>Bitte wählen</option>
                         <option v-for="category in level4Options" :value="category" :key="category.id">((category.name))</option>
