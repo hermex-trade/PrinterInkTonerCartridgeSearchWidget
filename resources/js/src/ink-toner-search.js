@@ -125,7 +125,9 @@ Vue.component("ink-toner-search", {
         },
         level2Options: function () {
             if (this.level1Category) {
-                return this.level2Categories
+                return this.level2Categories.sort(function (a, b) {
+                    return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+                });
             } else {
                 return []
             }
@@ -133,6 +135,9 @@ Vue.component("ink-toner-search", {
         level3Options: function () {
             if (this.selectedLevel2Category) {
                 return this.level3Categories.filter(category => category.parentCategoryId === this.selectedLevel2Category.id)
+                    .sort(function (a, b) {
+                        return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+                    });
             } else {
                 return []
             }
@@ -140,6 +145,9 @@ Vue.component("ink-toner-search", {
         level4Options: function () {
             if (this.selectedLevel3Category) {
                 return this.level4Categories.filter(category => category.parentCategoryId === this.selectedLevel3Category.id)
+                    .sort(function (a, b) {
+                        return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+                    });
             } else {
                 return []
             }
@@ -147,6 +155,9 @@ Vue.component("ink-toner-search", {
         level5Options: function () {
             if (this.selectedLevel4Category) {
                 return this.level5Categories.filter(category => category.parentCategoryId === this.selectedLevel4Category.id)
+                    .sort(function (a, b) {
+                        return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+                    });
             } else {
                 return []
             }
