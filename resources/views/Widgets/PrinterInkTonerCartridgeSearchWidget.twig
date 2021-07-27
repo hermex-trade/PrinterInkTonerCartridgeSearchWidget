@@ -13,7 +13,7 @@
 
     {# TODO Replace getChildren with getCurrentCategoryChildren if IO is on version 5.0.34 #}
     {# Get the subcategories with the current category id #}
-    {% set level2CategoryChildren = services.category.getChildren(parentId) %}
+    {% set level2CategoryChildren = services.category.getCurrentCategoryChildren(parentId) %}
 
     {% set level1Category = {} %}
     {% set level2Categories = [] %}
@@ -31,7 +31,7 @@
 
     {% for level2Catgegory in level2CategoryChildren %}
         {% set id = level2Catgegory.id %}
-        {% set level3CategoryChildren = services.category.getChildren(id) %}
+        {% set level3CategoryChildren = services.category.getCurrentCategoryChildren(id) %}
 
         {% set option = {
             "id": level2Catgegory.id,
@@ -42,7 +42,7 @@
         {% set level2Categories = level2Categories|merge([option]) %}
         {% for level3Categegory in level3CategoryChildren %}
             {% set id = level3Categegory.id %}
-            {% set level4CategoryChildren = services.category.getChildren(id) %}
+            {% set level4CategoryChildren = services.category.getCurrentCategoryChildren(id) %}
 
             {% set option = {
                 "id": level3Categegory.id,
@@ -53,7 +53,7 @@
             {% set level3Categories = level3Categories|merge([option]) %}
             {% for level4Categegory in level4CategoryChildren %}
                 {% set id = level4Categegory.id %}
-                {% set level5CategoryChildren = services.category.getChildren(id) %}
+                {% set level5CategoryChildren = services.category.getCurrentCategoryChildren(id) %}
                 {% set option = {
                     "id": level4Categegory.id,
                     "parentCategoryId": level4Categegory.parentCategoryId,
@@ -82,10 +82,6 @@
             <p>Tinten & Toner Hauptkategorie hat URL: {{ parentCategoryNameUrl }}</p>
             <p>Redirect URL Hash: {{ redirectUrlHash }}</p>
 
-            <p>
-                Tinten & Toner Kategorie Daten
-                {{ parentCategory | json_encode() }}
-            </p>
         </div>
     {% else %}
         <div>
