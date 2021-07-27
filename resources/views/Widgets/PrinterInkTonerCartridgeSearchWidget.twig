@@ -11,7 +11,6 @@
     {% set parentCategoryName = parentCategory.details.0.name %}
     {% set parentCategoryNameUrl = parentCategory.details.0.nameUrl %}
 
-    {# TODO Replace getChildren with getCurrentCategoryChildren if IO is on version 5.0.34 #}
     {# Get the subcategories with the current category id #}
     {% set level2CategoryChildren = services.category.getCurrentCategoryChildren(parentId) %}
 
@@ -31,6 +30,7 @@
 
     {% for level2Catgegory in level2CategoryChildren %}
         {% set id = level2Catgegory.id %}
+        {% set parentCategoryId = services.category.get(id).parentCategoryId %}
         {% set level3CategoryChildren = services.category.getCurrentCategoryChildren(id) %}
 
         {% set option = {
@@ -42,30 +42,33 @@
         {% set level2Categories = level2Categories|merge([option]) %}
         {% for level3Categegory in level3CategoryChildren %}
             {% set id = level3Categegory.id %}
+            {% set parentCategoryId = services.category.get(id).parentCategoryId %}
             {% set level4CategoryChildren = services.category.getCurrentCategoryChildren(id) %}
 
             {% set option = {
                 "id": level3Categegory.id,
-                "parentCategoryId": level2Catgegory.id,
+                "parentCategoryId": parentCategoryId,
                 "name": level3Categegory.details.0.name,
                 "nameUrl": level3Categegory.details.0.nameUrl
             } %}
             {% set level3Categories = level3Categories|merge([option]) %}
             {% for level4Categegory in level4CategoryChildren %}
                 {% set id = level4Categegory.id %}
+                {% set parentCategoryId = services.category.get(id).parentCategoryId %}
                 {% set level5CategoryChildren = services.category.getCurrentCategoryChildren(id) %}
                 {% set option = {
                     "id": level4Categegory.id,
-                    "parentCategoryId": level3Catgegory.id,
+                    "parentCategoryId": parentCategoryId,
                     "name": level4Categegory.details.0.name,
                     "nameUrl": level4Categegory.details.0.nameUrl
                 } %}
                 {% set level4Categories = level4Categories|merge([option]) %}
                 {% for level5Categegory in level5CategoryChildren %}
                     {% set id = level5Categegory.id %}
+                    {% set parentCategoryId = services.category.get(id).parentCategoryId %}
                     {% set option = {
                         "id": level5Categegory.id,
-                        "parentCategoryId": level4Catgegory.id,
+                        "parentCategoryId": parentCategoryId,
                         "name": level5Categegory.details.0.name,
                         "nameUrl": level5Categegory.details.0.nameUrl
                     } %}
@@ -74,7 +77,6 @@
             {% endfor %}
         {% endfor %}
     {% endfor %}
-
 
     {% if isPreview %}
         <div>
