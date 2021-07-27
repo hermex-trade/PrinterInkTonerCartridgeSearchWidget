@@ -35,7 +35,7 @@
 
         {% set option = {
             "id": level2Catgegory.id,
-            "parentCategoryId": level2Catgegory.parentCategoryId,
+            "parentCategoryId": parentId,
             "name": level2Catgegory.details.0.name,
             "nameUrl": level2Catgegory.details.0.nameUrl
         } %}
@@ -46,7 +46,7 @@
 
             {% set option = {
                 "id": level3Categegory.id,
-                "parentCategoryId": level3Categegory.parentCategoryId,
+                "parentCategoryId": level2Catgegory.id,
                 "name": level3Categegory.details.0.name,
                 "nameUrl": level3Categegory.details.0.nameUrl
             } %}
@@ -56,7 +56,7 @@
                 {% set level5CategoryChildren = services.category.getCurrentCategoryChildren(id) %}
                 {% set option = {
                     "id": level4Categegory.id,
-                    "parentCategoryId": level4Categegory.parentCategoryId,
+                    "parentCategoryId": level3Catgegory.id,
                     "name": level4Categegory.details.0.name,
                     "nameUrl": level4Categegory.details.0.nameUrl
                 } %}
@@ -65,7 +65,7 @@
                     {% set id = level5Categegory.id %}
                     {% set option = {
                         "id": level5Categegory.id,
-                        "parentCategoryId": level5Categegory.parentCategoryId,
+                        "parentCategoryId": level4Catgegory.id,
                         "name": level5Categegory.details.0.name,
                         "nameUrl": level5Categegory.details.0.nameUrl
                     } %}
@@ -74,6 +74,7 @@
             {% endfor %}
         {% endfor %}
     {% endfor %}
+
 
     {% if isPreview %}
         <div>
