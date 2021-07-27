@@ -56,6 +56,7 @@ Vue.component("ink-toner-search", {
         'level3Categories',
         'level4Categories',
         'level5Categories',
+        'redirectUrlHash',
     ],
     watch: {
         selectedLevel2Category: function () {
@@ -91,7 +92,11 @@ Vue.component("ink-toner-search", {
         },
         redirectToMatchingProducts() {
             if (this.targetUrl) {
-                document.location.href = document.location.origin + this.targetUrl
+                let url = document.location.origin + this.targetUrl
+                if (this.redirectUrlHash) {
+                    url += this.redirectUrlHash
+                }
+                document.location.href = url
             }
         }
     },

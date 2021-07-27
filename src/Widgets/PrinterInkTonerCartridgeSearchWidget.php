@@ -58,6 +58,9 @@ class PrinterInkTonerCartridgeSearchWidget extends BaseWidget
         $settings->createText("description")
             ->withName("PrinterInkTonerCartridgeSearchWidget.descriptionLabel")
             ->withToolTip("PrinterInkTonerCartridgeSearchWidget.descriptionTooltip");
+        $settings->createText("redirectUrlHash")
+            ->withName("PrinterInkTonerCartridgeSearchWidget.redirectUrlHashLabel")
+            ->withToolTip("PrinterInkTonerCartridgeSearchWidget.redirectUrlHashTooltip");
         return $settings->toArray();
     }
 

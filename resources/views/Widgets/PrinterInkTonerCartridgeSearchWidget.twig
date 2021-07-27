@@ -1,6 +1,7 @@
 {% set parentId = widget.settings.mainCategoryId.mobile %}
 {% set title = widget.settings.title.mobile %}
 {% set description = widget.settings.description.mobile %}
+{% set redirectUrlHash = widget.settings.redirectUrlHash.mobile %}
 
 {% if parentId is not empty %}
 
@@ -87,6 +88,7 @@
             <ink-toner-search
                     :title="{{ title | json_encode }}"
                     :description="{{ description | json_encode }}"
+                    :redirectUrlHash="{{ redirectUrlHash | json_encode }}"
                     :level1-category="{{ level1Category | json_encode }}"
                     :level2-categories="{{ level2Categories | json_encode }}"
                     :level3-categories="{{ level3Categories | json_encode }}"
