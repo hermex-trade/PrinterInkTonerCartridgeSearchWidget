@@ -81,13 +81,18 @@
             <p>Tinten & Toner Hauptkategorie hat ID: {{ parentId }}</p>
             <p>Tinten & Toner Hauptkategorie hat URL: {{ parentCategoryNameUrl }}</p>
             <p>Redirect URL Hash: {{ redirectUrlHash }}</p>
+
+            <p>
+                Tinten & Toner Kategorie Daten
+                {{ parentCategory | json_encode() }}
+            </p>
         </div>
     {% else %}
         <div>
             <ink-toner-search
                     :title="{{ title | json_encode }}"
                     :description="{{ description | json_encode }}"
-                    :redirectUrlHash="{{ redirectUrlHash | json_encode }}"
+                    :redirect-url-hash="{{ redirectUrlHash | json_encode }}"
                     :level1-category="{{ level1Category | json_encode }}"
                     :level2-categories="{{ level2Categories | json_encode }}"
                     :level3-categories="{{ level3Categories | json_encode }}"
