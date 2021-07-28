@@ -186,6 +186,12 @@ Vue.component("ink-toner-search", {
             concatenateNameUrlIfCategorySelected(this.selectedLevel5Category)
             // Remove leading slash if it is present in the string
             return targetUrl
-        }
+        },
+        log: function () {
+            console.log(this.level2Options)
+            console.log(this.level3Options)
+            console.log(this.level4Options)
+            console.log(this.level5Options)
+        },
     },
 });
