@@ -102,7 +102,6 @@ Vue.component("ink-toner-search", {
     },
     data() {
         return {
-            selectedLevel1Category: this.level1Category,
             selectedLevel2Category: null,
             selectedLevel3Category: null,
             selectedLevel4Category: null,
@@ -180,7 +179,7 @@ Vue.component("ink-toner-search", {
                     concatenateNameUrl(category)
                 }
             }
-            concatenateNameUrlIfCategorySelected(this.selectedLevel1Category)
+            concatenateNameUrl(this.level1Category)
             concatenateNameUrlIfCategorySelected(this.selectedLevel2Category)
             concatenateNameUrlIfCategorySelected(this.selectedLevel3Category)
             concatenateNameUrlIfCategorySelected(this.selectedLevel4Category)

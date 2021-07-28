@@ -2,7 +2,7 @@
   "name"              : "PrinterInkTonerCartridgeSearchWidget",
   "namespace"         : "PrinterInkTonerCartridgeSearchWidget",
   "type"              : "widgets",
-  "version"           : "0.0.3",
+  "version"           : "0.0.4",
   "pluginIcon"        : "",
   "description"       : "A widget for plentymarkets to search printer ink and toner cartridges",
   "author"            : "Nicolas Andrea Almy - Hermex Trade",
