@@ -11,9 +11,6 @@
     {% set parentCategoryName = parentCategory.details.0.name %}
     {% set parentCategoryNameUrl = parentCategory.details.0.nameUrl %}
 
-    {# Get the subcategories with the current category id #}
-    {% set level2CategoryChildren = services.category.getCurrentCategoryChildren(parentId) %}
-
     {% set level1Category = {} %}
     {% set level2Categories = [] %}
     {% set level3Categories = [] %}
@@ -28,47 +25,49 @@
 
     {% set level1Category = level1Category|merge(option) %}
 
-    {% for level2Catgegory in level2CategoryChildren %}
-        {% set id = level2Catgegory.id %}
-        {% set parentCategoryId = services.category.get(id).parentCategoryId %}
-        {% set level3CategoryChildren = services.category.getCurrentCategoryChildren(id) %}
+    {% set level1CategoryChildren = services.category.getCurrentCategoryChildren(20511) %}
 
+    {% for level2Catgegory in level1CategoryChildren %}
+        {% set id = level2Catgegory.id %}
+        {% set currentCategory = services.category.get(id) %}
+        {% set level2CategoryChildren = services.category.getCurrentCategoryChildren(id) %}
         {% set option = {
-            "id": level2Catgegory.id,
-            "parentCategoryId": parentId,
+            "id": currentCategory.id,
+            "parentCategoryId": currentCategory.parentCategoryId,
             "name": level2Catgegory.details.0.name,
             "nameUrl": level2Catgegory.details.0.nameUrl
         } %}
         {% set level2Categories = level2Categories|merge([option]) %}
-        {% for level3Categegory in level3CategoryChildren %}
-            {% set id = level3Categegory.id %}
-            {% set parentCategoryId = services.category.get(id).parentCategoryId %}
-            {% set level4CategoryChildren = services.category.getCurrentCategoryChildren(id) %}
+        {% for level3Categegory in level2CategoryChildren %}
+            {% set id = level2Catgegory.id %}
+            {% set currentCategory = services.category.get(id) %}
 
+            {% set level3CategoryChildren = services.category.getCurrentCategoryChildren(id) %}
             {% set option = {
-                "id": level3Categegory.id,
-                "parentCategoryId": parentCategoryId,
+                "id": currentCategory.id,
+                "parentCategoryId": currentCategory.parentCategoryId,
                 "name": level3Categegory.details.0.name,
                 "nameUrl": level3Categegory.details.0.nameUrl
             } %}
             {% set level3Categories = level3Categories|merge([option]) %}
-            {% for level4Categegory in level4CategoryChildren %}
-                {% set id = level4Categegory.id %}
-                {% set parentCategoryId = services.category.get(id).parentCategoryId %}
-                {% set level5CategoryChildren = services.category.getCurrentCategoryChildren(id) %}
+            {% for level4Categegory in level3CategoryChildren %}
+                {% set id = level2Catgegory.id %}
+                {% set currentCategory = services.category.get(id) %}
+                {% set level4CategoryChildren = services.category.getCurrentCategoryChildren(id) %}
                 {% set option = {
-                    "id": level4Categegory.id,
-                    "parentCategoryId": parentCategoryId,
+                    "id": currentCategory.id,
+                    "parentCategoryId": currentCategory.parentCategoryId,
                     "name": level4Categegory.details.0.name,
                     "nameUrl": level4Categegory.details.0.nameUrl
                 } %}
                 {% set level4Categories = level4Categories|merge([option]) %}
-                {% for level5Categegory in level5CategoryChildren %}
-                    {% set id = level5Categegory.id %}
-                    {% set parentCategoryId = services.category.get(id).parentCategoryId %}
+                {% for level5Categegory in level4CategoryChildren %}
+                    {% set id = level2Catgegory.id %}
+
+                    {% set currentCategory = services.category.get(id) %}
                     {% set option = {
-                        "id": level5Categegory.id,
-                        "parentCategoryId": parentCategoryId,
+                        "id": currentCategory.id,
+                        "parentCategoryId": currentCategory.parentCategoryId,
                         "name": level5Categegory.details.0.name,
                         "nameUrl": level5Categegory.details.0.nameUrl
                     } %}
@@ -84,7 +83,6 @@
             <p>Tinten & Toner Hauptkategorie hat ID: {{ parentId }}</p>
             <p>Tinten & Toner Hauptkategorie hat URL: {{ parentCategoryNameUrl }}</p>
             <p>Redirect URL Hash: {{ redirectUrlHash }}</p>
-
         </div>
     {% else %}
         <div>
