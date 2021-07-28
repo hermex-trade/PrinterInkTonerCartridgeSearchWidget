@@ -72,7 +72,7 @@ Vue.component("ink-toner-search", {
             this.resetLevel5Selection()
         },
         reachedLastLevel: function () {
-            if (this.reachedLastLevel) {
+            if (this.hasNoMoreSelectionOptions) {
                 this.redirectToMatchingProducts()
             }
         }
@@ -110,7 +110,7 @@ Vue.component("ink-toner-search", {
         }
     },
     computed: {
-        reachedLastLevel: function() {
+        hasNoMoreSelectionOptions: function() {
             if (this.selectedLevel2Category && this.level3Options.length === 0) {
                 return true
             }
