@@ -25,7 +25,7 @@
 
     {% set level1Category = level1Category|merge(option) %}
 
-    {% set level1CategoryChildren = services.category.getCurrentCategoryChildren(20511) %}
+    {% set level1CategoryChildren = services.category.getCurrentCategoryChildren(parentId) %}
 
     {% for level2Catgegory in level1CategoryChildren %}
         {% set id = level2Catgegory.id %}
@@ -82,6 +82,9 @@
             <p>Tinten & Toner Hauptkategorie hat ID: {{ parentId }}</p>
             <p>Tinten & Toner Hauptkategorie hat URL: {{ parentCategoryNameUrl }}</p>
             <p>Redirect URL Hash: {{ redirectUrlHash }}</p>
+
+            {%  for level2Cate %}
+            {% endfor %}
         </div>
     {% else %}
         <div>
