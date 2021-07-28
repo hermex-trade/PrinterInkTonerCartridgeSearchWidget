@@ -34,8 +34,8 @@
         {% set option = {
             "id": level2Category.id,
             "parentCategoryId": currentCategory.parentCategoryId,
-            "name": level2Catgory.details.0.name,
-            "nameUrl": level2Catgory.details.0.nameUrl
+            "name": level2Category.details.0.name,
+            "nameUrl": level2Category.details.0.nameUrl
         } %}
         {% set level2Categories = level2Categories|merge([option]) %}
         {% for level3Category in level2CategoryChildren %}
@@ -96,7 +96,7 @@
                     :level5-categories="{{ level5Categories | json_encode }}">
             </ink-toner-search>
         </div>
-    {% endif %}
+    {% endif %}§
 {% else %}
     <p>Die Einstellungen des PrinterInkTonerCartridgeSearchWidgets sind nicht korrekt.</p>
 {% endif %}
