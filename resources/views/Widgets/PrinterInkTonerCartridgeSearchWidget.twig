@@ -39,7 +39,7 @@
         } %}
         {% set level2Categories = level2Categories|merge([option]) %}
         {% for level3Categegory in level2CategoryChildren %}
-            {% set id = level2Catgegory.id %}
+            {% set id = level3Catgegory.id %}
             {% set currentCategory = services.category.get(id) %}
 
             {% set level3CategoryChildren = services.category.getCurrentCategoryChildren(id) %}
@@ -51,7 +51,7 @@
             } %}
             {% set level3Categories = level3Categories|merge([option]) %}
             {% for level4Categegory in level3CategoryChildren %}
-                {% set id = level2Catgegory.id %}
+                {% set id = level4Catgegory.id %}
                 {% set currentCategory = services.category.get(id) %}
                 {% set level4CategoryChildren = services.category.getCurrentCategoryChildren(id) %}
                 {% set option = {
@@ -62,8 +62,7 @@
                 } %}
                 {% set level4Categories = level4Categories|merge([option]) %}
                 {% for level5Categegory in level4CategoryChildren %}
-                    {% set id = level2Catgegory.id %}
-
+                    {% set id = level5Catgegory.id %}
                     {% set currentCategory = services.category.get(id) %}
                     {% set option = {
                         "id": currentCategory.id,
