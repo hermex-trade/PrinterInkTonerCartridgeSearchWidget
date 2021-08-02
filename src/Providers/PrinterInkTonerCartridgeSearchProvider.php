@@ -2,7 +2,7 @@
 
 namespace PrinterInkTonerCartridgeSearchWidget\Providers;
 
-use POCPrinterInkTonerCartridgeSearchWidget\Widgets\PrinterInkTonerCartridgeSearchWidget;
+use PrinterInkTonerCartridgeSearchWidget\Widgets\PrinterInkTonerCartridgeSearchWidget;
 use IO\Helper\ResourceContainer;
 use Plenty\Plugin\Events\Dispatcher;
 use Plenty\Plugin\ServiceProvider;
