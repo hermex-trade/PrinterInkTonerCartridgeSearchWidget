@@ -1,8 +1,8 @@
 <?php
 
-namespace PrinterInkTonerCartridgeSearchWidget\Providers;
+namespace POCPrinterInkTonerCartridgeSearchWidget\Providers;
 
-use PrinterInkTonerCartridgeSearchWidget\Widgets\PrinterInkTonerCartridgeSearchWidget;
+use POCPrinterInkTonerCartridgeSearchWidget\Widgets\PrinterInkTonerCartridgeSearchWidget;
 use IO\Helper\ResourceContainer;
 use Plenty\Plugin\Events\Dispatcher;
 use Plenty\Plugin\ServiceProvider;
@@ -23,7 +23,7 @@ class PrinterInkTonerCartridgeSearchProvider extends ServiceProvider
         $widgetRepository->registerWidget(PrinterInkTonerCartridgeSearchWidget::class);
 
         $eventDispatcher->listen('IO.Resources.Import', function (ResourceContainer $container) {
-            $container->addScriptTemplate('PrinterInkTonerCartridgeSearchWidget::Content.Scripts');
+            $container->addScriptTemplate('POCPrinterInkTonerCartridgeSearchWidget::Content.Scripts');
         }, 0);
     }
 }
