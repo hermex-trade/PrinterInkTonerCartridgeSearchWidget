@@ -10,24 +10,22 @@ use Ceres\Widgets\Helper\WidgetTypes;
 class PrinterInkTonerCartridgeSearchWidget extends BaseWidget
 {
 
-    protected $template = "PrinterInkTonerCartridgeSearchWidget::Widgets.PrinterInkTonerCartridgeSearchWidget";
+    protected $template = "POCPrinterInkTonerCartridgeSearchWidget::Widgets.PrinterInkTonerCartridgeSearchWidget";
 
     protected function getTemplateData($widgetSettings, $isPreview)
     {
-        $mainCategoryId = $widgetSettings["mainCategoryId"]["mobile"];
+        $parentCategoryId = $widgetSettings["parentCategoryId"]["mobile"];
 
-        if (empty($mainCategoryId)) {
+        if (empty($parentCategoryId)) {
             return [
                 "data" => false
             ];
         }
 
-        // If the main category id is set
-        // then we call the children on each subcategories recursively
-        if ($mainCategoryId) {
+        if ($parentCategoryId) {
             return [
                 "data" => [
-                    "mainCategoryId" => $mainCategoryId,
+                    "parentCategoryId" => $parentCategoryId,
                 ]
             ];
         }
@@ -39,9 +37,8 @@ class PrinterInkTonerCartridgeSearchWidget extends BaseWidget
 
     public function getData(): array
     {
-        return WidgetDataFactory::make("PrinterInkTonerCartridgeSearch::PrinterInkTonerCartridgeSearchWidget")
-            ->withLabel("PrinterInkTonerCartridgeSearchWidget.printerInkTonerCartridgeSearchWidgetLabel")
-            ->withMaxPerPage(2)
+        return WidgetDataFactory::make("POCPrinterInkTonerCartridgeSearch::PrinterInkTonerCartridgeSearchWidget")
+            ->withLabel("Widget.printerInkTonerCartridgeSearchWidgetLabel")
             ->withType(WidgetTypes::STATIC)
             ->toArray();
     }
@@ -49,20 +46,19 @@ class PrinterInkTonerCartridgeSearchWidget extends BaseWidget
     public function getSettings(): array
     {
         $settings = pluginApp(WidgetSettingsFactory::class);
-        $settings->createNumber("mainCategoryId")
-            ->withName("PrinterInkTonerCartridgeSearchWidget.mainCategoryIdLabel")
-            ->withToolTip("PrinterInkTonerCartridgeSearchWidget.mainCategoryIdTooltip");
+        $settings->createNumber("parentCategoryId")
+            ->withName("Widget.parentCategoryIdLabel")
+            ->withToolTip("Widget.parentCategoryIdTooltip");
         $settings->createText("title")
-            ->withName("PrinterInkTonerCartridgeSearchWidget.titleLabel")
-            ->withToolTip("PrinterInkTonerCartridgeSearchWidget.titleTooltip");
+            ->withName("Widget.titleLabel")
+            ->withToolTip("Widget.titleTooltip");
         $settings->createText("description")
-            ->withName("PrinterInkTonerCartridgeSearchWidget.descriptionLabel")
-            ->withToolTip("PrinterInkTonerCartridgeSearchWidget.descriptionTooltip");
+            ->withName("Widget.descriptionLabel")
+            ->withToolTip("Widget.descriptionTooltip");
         $settings->createText("redirectUrlHash")
-            ->withName("PrinterInkTonerCartridgeSearchWidget.redirectUrlHashLabel")
-            ->withToolTip("PrinterInkTonerCartridgeSearchWidget.redirectUrlHashTooltip");
+            ->withName("Widget.redirectUrlHashLabel")
+            ->withToolTip("Widget.redirectUrlHashTooltip");
         return $settings->toArray();
     }
 
 }
-

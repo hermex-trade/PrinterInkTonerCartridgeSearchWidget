@@ -1,13 +1,11 @@
-{% set parentId = widget.settings.mainCategoryId.mobile %}
+{% set parentCategoryId = widget.settings.parentCategoryId.mobile %}
 {% set title = widget.settings.title.mobile %}
 {% set description = widget.settings.description.mobile %}
 {% set redirectUrlHash = widget.settings.redirectUrlHash.mobile %}
 
-{% if parentId is not empty %}
+{% if parentCategoryId is not empty %}
 
-    {# TODO Filter if categories if they are not for the current client #}
-
-    {% set parentCategory = services.category.get(parentId) %}
+    {% set parentCategory = services.category.get(parentCategoryId) %}
     {% set parentCategoryName = parentCategory.details.0.name %}
     {% set parentCategoryNameUrl = parentCategory.details.0.nameUrl %}
 
@@ -18,14 +16,14 @@
     {% set level5Categories = [] %}
 
     {% set option = {
-        "id": parentCategory.id,
+        "id": parentCategoryId,
         "name": parentCategoryName,
         "nameUrl": parentCategoryNameUrl
     } %}
 
     {% set level1Category = level1Category|merge(option) %}
 
-    {% set level1CategoryChildren = services.category.getCurrentCategoryChildren(parentId) %}
+    {% set level1CategoryChildren = services.category.getCurrentCategoryChildren(parentCategoryId) %}
 
     {% for level2Category in level1CategoryChildren %}
         {% set id = level2Category.id %}
@@ -43,12 +41,14 @@
             {% set currentCategory = services.category.get(id) %}
 
             {% set level3CategoryChildren = services.category.getCurrentCategoryChildren(id) %}
+
             {% set option = {
                 "id": currentCategory.id,
                 "parentCategoryId": currentCategory.parentCategoryId,
                 "name": currentCategory.details.0.name,
                 "nameUrl": currentCategory.details.0.nameUrl
             } %}
+
             {% set level3Categories = level3Categories|merge([option]) %}
             {% for level4Category in level3CategoryChildren %}
                 {% set id = level4Category.id %}
@@ -79,7 +79,7 @@
     {% if isPreview %}
         <div>
             <h2>Tinten & Toner Suche</h2>
-            <p>Tinten & Toner Hauptkategorie hat ID: {{ parentId }}</p>
+            <p>Tinten & Toner Hauptkategorie hat ID: {{ parentCategoryId }}</p>
             <p>Tinten & Toner Hauptkategorie hat URL: {{ parentCategoryNameUrl }}</p>
             <p>Redirect URL Hash: {{ redirectUrlHash }}</p>
         </div>
@@ -96,7 +96,7 @@
                     :level5-categories="{{ level5Categories | json_encode }}">
             </ink-toner-search>
         </div>
-    {% endif %}§
+    {% endif %}
 {% else %}
     <p>Die Einstellungen des PrinterInkTonerCartridgeSearchWidgets sind nicht korrekt.</p>
 {% endif %}

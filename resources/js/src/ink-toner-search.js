@@ -71,8 +71,8 @@ Vue.component("ink-toner-search", {
         selectedLevel4Category: function () {
             this.resetLevel5Selection()
         },
-        reachedLastLevel: function () {
-            if (this.hasNoMoreSelectionOptions) {
+        hasNoMoreSelectionOptions: function () {
+            if (this.hasNoMoreSelectionOptions === true) {
                 this.redirectToMatchingProducts()
             }
         }
@@ -93,10 +93,14 @@ Vue.component("ink-toner-search", {
         redirectToMatchingProducts() {
             if (this.targetUrl) {
                 let url = document.location.origin + this.targetUrl
+                console.info("Targeturl set: ")
                 if (this.redirectUrlHash) {
                     url += this.redirectUrlHash
                 }
+                console.info("Now we should redirect to the url: ", url)
                 document.location.href = url
+            } else {
+                console.warn("targetUrl not set!!")
             }
         }
     },
@@ -166,9 +170,6 @@ Vue.component("ink-toner-search", {
                 return []
             }
         },
-        currentPathName: function () {
-            return window.location.pathname
-        },
         targetUrl: function () {
             let targetUrl = ""
             function concatenateNameUrl(category) {
@@ -186,12 +187,6 @@ Vue.component("ink-toner-search", {
             concatenateNameUrlIfCategorySelected(this.selectedLevel5Category)
             // Remove leading slash if it is present in the string
             return targetUrl
-        },
-        log: function () {
-            console.log(this.level2Options)
-            console.log(this.level3Options)
-            console.log(this.level4Options)
-            console.log(this.level5Options)
         },
     },
 });
