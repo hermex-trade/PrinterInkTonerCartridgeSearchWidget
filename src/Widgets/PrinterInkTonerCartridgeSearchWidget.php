@@ -10,7 +10,7 @@ use Ceres\Widgets\Helper\WidgetTypes;
 class PrinterInkTonerCartridgeSearchWidget extends BaseWidget
 {
 
-    protected $template = "POCPrinterInkTonerCartridgeSearchWidget::Widgets.PrinterInkTonerCartridgeSearchWidget";
+    protected $template = "PrinterInkTonerCartridgeSearchWidget::Widgets.PrinterInkTonerCartridgeSearchWidget";
 
     protected function getTemplateData($widgetSettings, $isPreview)
     {
@@ -37,7 +37,7 @@ class PrinterInkTonerCartridgeSearchWidget extends BaseWidget
 
     public function getData(): array
     {
-        return WidgetDataFactory::make("POCPrinterInkTonerCartridgeSearch::PrinterInkTonerCartridgeSearchWidget")
+        return WidgetDataFactory::make("PrinterInkTonerCartridgeSearchWidget::PrinterInkTonerCartridgeSearchWidget")
             ->withLabel("Widget.printerInkTonerCartridgeSearchWidgetLabel")
             ->withType(WidgetTypes::STATIC)
             ->toArray();
