@@ -1,6 +1,6 @@
 {
-  "name"              : "POCPrinterInkTonerCartridgeSearchWidget",
-  "namespace"         : "POCPrinterInkTonerCartridgeSearchWidget",
+  "name"              : "PrinterInkTonerCartridgeSearchWidget",
+  "namespace"         : "PrinterInkTonerCartridgeSearchWidget",
   "type"              : "widgets",
   "version"           : "1.0.0",
   "pluginIcon"        : "",
@@ -9,7 +9,7 @@
   "authorIcon"        : "",
   "email"             : "nicolas.almy@gmail.com",
   "phone"             : "",
-  "serviceProvider"   : "POCPrinterInkTonerCartridgeSearchWidget\\Providers\\PrinterInkTonerCartridgeSearchProvider",
+  "serviceProvider"   : "PrinterInkTonerCartridgeSearchWidget\\Providers\\PrinterInkTonerCartridgeSearchProvider",
   "containers"        : [],
   "dataProviders"     : [],
   "javaScriptFiles"   : [],
